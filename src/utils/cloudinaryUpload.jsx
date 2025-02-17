@@ -25,7 +25,8 @@ const uploadToCloudinary = async (file, setUploadProgress, maxSizeKB = 800) => {
     // Prepare form data for upload
     const data = new FormData();
     data.append("file", compressedFile);
-    data.append("upload_preset", "whxam1fl");
+    // data.append("upload_preset", "whxam1fl");
+    data.append("upload_preset", "Saburi");
     data.append("folder", "Saburi");
 
     // email - interestingdriscoll3@typingsquirrel.com
@@ -33,7 +34,7 @@ const uploadToCloudinary = async (file, setUploadProgress, maxSizeKB = 800) => {
     // Upload the compressed image to Cloudinary
     const response = await axios.post(
       // `https://api.cloudinary.com/v1_1/dzvsrft15/image/upload`,
-      `https://api.cloudinary.com/v1_1/dunzldpvc/image/upload`,
+      `https://api.cloudinary.com/v1_1/deyyovhtb/image/upload`,
       data,
       {
         onUploadProgress: (progressEvent) => {
