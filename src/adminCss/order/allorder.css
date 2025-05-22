@@ -1,92 +1,233 @@
 /* allorder.css */
-.all-orders-container{
-  width: 100%;
+
+/* Main Container */
+.all-orders-container {
+  padding: 20px;
+  background-color: var(--light-color);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
 }
-.main_order_list_container{
-  display: flex;
-  flex-wrap: wrap;
-gap: 40px;
-}
-.order-list {
+
+/* Status Filter Buttons */
+.all_orders_status_buttons {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-}
-.all-orders-container {
-  padding: 20px;
-
-}
-
-.all_orders_status_buttons {
   margin-bottom: 20px;
-  display: flex;
-  justify-content: space-around;
 }
 
 .admin_add_product_button {
-  margin-right: 10px;
-  padding: 8px 16px;
-  background-color:var(--gay-bg-color);
-  color: white;
+  padding: 8px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  color: white;
   cursor: pointer;
-  outline: none;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.admin_add_product_button:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
 }
 
 .admin_add_product_button.selectedStatus {
-  background-color: #008CBA !important;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(58, 95, 11, 0.3);
 }
 
+/* Order List Container */
+.main_order_list_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-
+/* Individual Order Container */
 .order_list_container {
-  width: 100%;
-  max-height: 551px;
-  min-height: 550px;
-  overflow-y: scroll;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  border-left: 4px solid var(--accent-color);
+  transition: all 0.3s ease;
 }
 
+.order_list_container:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Order Item Details */
 .order_item_details {
   display: flex;
-  margin-bottom: 10px;
+  gap: 15px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.order_item_details:last-child {
+  border-bottom: none;
 }
 
 .all_order_thumbnail {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
-  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.order_details, .all_order_shippingAddress, .all_order_other_details, .all_order_price_details {
-  margin-top: 10px;
+.order_item_details p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.order_item_details b {
+  color: var(--dark-color);
+}
+
+/* Order Details Sections */
+.all_order_details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .all_order_details div {
-  margin-bottom: 5px;
+  font-size: 0.9rem;
 }
 
+.all_order_details b {
+  color: var(--dark-color);
+  margin-right: 5px;
+}
+
+/* Status Badges */
+.order_details div:nth-child(2) {
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  font-size: 0.8rem;
+}
+
+.order_details div:nth-child(2)[data-status="Pending"] {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.order_details div:nth-child(2)[data-status="Shipped"] {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.order_details div:nth-child(2)[data-status="Delivered"] {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.order_details div:nth-child(2)[data-status="Cancelled"] {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Action Buttons */
 .all_order_buttons_div {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+  gap: 10px;
+  padding: 15px 0 0;
+  grid-column: 1 / -1;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.all_order_order_view_button, .all_order_order_update_button {
-  padding: 8px 16px;
-  color: white;
+.all_order_order_view_button,
+.all_order_order_update_button {
+  padding: 8px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  background-color: #005f6b;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-align: center;
   text-decoration: none;
 }
 
-.all_order_order_view_button:hover, .all_order_order_update_button:hover {
-background-color: var(--gay-bg-color);
+.all_order_order_view_button {
+  background-color: var(--secondary-color);
+  color: white;
 }
+
+.all_order_order_view_button:hover {
+  background-color: var(--primary-color);
+}
+
+.all_order_order_update_button {
+  background-color: var(--accent-color);
+  color: var(--dark-color);
+}
+
+.all_order_order_update_button:hover {
+  background-color: #b5986e;
+  color: white;
+}
+
+/* Price Highlight */
+.all_order_price_details div:first-child {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .order_list_container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .order_list_container {
+    grid-template-columns: 1fr;
+  }
+  
+  .all_orders_status_buttons {
+    flex-direction: column;
+  }
+  
+  .admin_add_product_button {
+    width: 100%;
+  }
+  
+  .all_order_buttons_div {
+    flex-direction: column;
+  }
+}
+
+/* Animation for order cards */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order_list_container {
+  animation: fadeInUp 0.5s ease-out;
+  animation-fill-mode: backwards;
+}
+
+/* Stagger animations */
+.order_list_container:nth-child(1) { animation-delay: 0.1s; }
+.order_list_container:nth-child(2) { animation-delay: 0.2s; }
+.order_list_container:nth-child(3) { animation-delay: 0.3s; }
+.order_list_container:nth-child(4) { animation-delay: 0.4s; }
+.order_list_container:nth-child(5) { animation-delay: 0.5s; }

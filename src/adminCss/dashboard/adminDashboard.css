@@ -1,56 +1,148 @@
-   /* adminDashboard.css */
+/* adminDashboard.css */
+
+/* Dashboard Summary Cards */
 .dashboard-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-  padding: 20px;
+  margin-bottom: 30px;
 }
 
 .dashboard-card {
-  background-color: #fff;
+  background: white;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--accent-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
 }
 
 .dashboard-card h2 {
-  color: var(--primary-color);
-  font-size: 1.5rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+  font-weight: 500;
   margin-bottom: 10px;
 }
 
 .dashboard-card p {
+  color: var(--dark-color);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Special highlight for important cards */
+.dashboard-card:nth-child(1) {
+  border-left-color: var(--primary-color);
+}
+.dashboard-card:nth-child(2) {
+  border-left-color: var(--secondary-color);
+}
+.dashboard-card:nth-child(3) {
+  border-left-color: #6B8E23;
+}
+
+/* Chart Containers */
+.main_admin_all_graph_div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.main_order_pie_chart_graph {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.main_order_pie_chart_graph h2 {
+  color: var(--primary-color);
   font-size: 1.2rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* graph */
-.main_admin_all_graph_div{
-  display: flex;
-  justify-content: space-around;
-}
-.main_order_pie_chart_graph{
-  width: 30%;
+/* Chart.js Canvas Elements */
+canvas {
+  max-height: 400px;
+  width: 100% !important;
 }
 
-/* Loader Styles */
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .dashboard-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .main_admin_all_graph_div {
+    grid-template-columns: 1fr;
+  }
 }
 
-.loader-spinner {
-  border: 8px solid rgba(0, 0, 0, 0.1);
-  border-top: 8px solid var(--primary-color);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  
+  .dashboard-card h2 {
+    font-size: 0.9rem;
+  }
+  
+  .dashboard-card p {
+    font-size: 1.4rem;
+  }
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* Animation for cards */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dashboard-card {
+  animation: cardEntrance 0.5s ease-out;
+  animation-fill-mode: backwards;
+}
+
+/* Delay animations for staggered effect */
+.dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+.dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+.dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+.dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+.dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+.dashboard-card:nth-child(6) { animation-delay: 0.6s; }
+.dashboard-card:nth-child(7) { animation-delay: 0.7s; }
+.dashboard-card:nth-child(8) { animation-delay: 0.8s; }
+
+/* Chart tooltip customization */
+.chartjs-tooltip {
+  background: rgba(0, 0, 0, 0.7) !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  color: white !important;
+  font-family: var(--font-primary) !important;
+}
+
+.chartjs-tooltip-key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
 }

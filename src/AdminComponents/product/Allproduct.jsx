@@ -4,8 +4,6 @@ import { makeApi } from "../../api/callApi";
 import { Link } from "react-router-dom";
 import ConfirmationModal from "./admindeleteproduct";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-
 import Loader from "../../components/loader/loader";
 
 const Allproduct = () => {
@@ -99,14 +97,7 @@ const Allproduct = () => {
           {/* search */}
           <div>
             <div className="inputBox_container">
-              {/* <svg
-                className="search_icon"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 48 48"
-                alt="search icon"
-              >
-                <path d="M46.599 46.599a4.498 4.498 0 0 1-6.363 0l-7.941-7.941C29.028 40.749 25.167 42 21 42 9.402 42 0 32.598 0 21S9.402 0 21 0s21 9.402 21 21c0 4.167-1.251 8.028-3.342 11.295l7.941 7.941a4.498 4.498 0 0 1 0 6.363zM21 6C12.717 6 6 12.714 6 21s6.717 15 15 15c8.286 0 15-6.714 15-15S29.286 6 21 6z"></path>
-              </svg> */}
+              
               <input
                 className="inputBox"
                 id="inputBox"
@@ -133,29 +124,7 @@ const Allproduct = () => {
               ))}
             </select>
           </div>
-          {/* in a stock */}
-          {/* <div>
-            <select
-              className="add_product_input_filed add_product_dropdown"
-              value={stockQuery}
-              onChange={(e) => setStockQuery(e.target.value)}
-            >
-              <option value="">All product</option>
-              <option value="false">In a stock</option>
-              <option value="true">Out of stock</option>
-            </select>
-          </div> */}
-          {/* <div>
-            <select
-              className="add_product_input_filed add_product_dropdown"
-              value={productType}
-              onChange={(e) => setProductType(e.target.value)}
-            >
-              <option value="">All product</option> 
-              <option value="International">International</option>
-              <option value="Domestic">Domestic</option>
-            </select>
-          </div> */}
+        
           <div>
             <select
               className="add_product_input_filed add_product_dropdown"
@@ -191,14 +160,11 @@ const Allproduct = () => {
                   <LazyLoadImage effect="blur" loading="lazy"
                     src={product.thumbnail}
                     alt={product.name}
-                    // className={product.quantity === 0 ? "bw-image admin_page_product_thumbnail" : "admin_page_product_thumbnail"}
                     className={"admin_page_product_thumbnail"}
                   />
                   <div className="product-info">
                     <h3>{product.name}</h3>
-                    {/* <p>Price: ₹{product.price}</p> */}
-                    {/* <p>Stock: {product.quantity}</p> */}
-                    {/* <p>Brand: {product?.productType}</p> */}
+                
                   </div>
                   <div className="all_products_page_button">
                     <Link to={`/admin/product-update/${product._id}`}>
@@ -211,11 +177,7 @@ const Allproduct = () => {
                       Delete
                     </button>
                   </div>
-                  <div>
-                    <Link to={`/admin/product-details/${product._id}`}>
-                      <button className="view_button_all_product">View</button>
-                    </Link>
-                  </div>
+               
                 </div>
               ))}
 

@@ -1,0 +1,84 @@
+/* Admin Layout Styles */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--background-gradient);
+}
+
+.admin-main-content {
+  flex: 1;
+  padding: var(--spacing-md);
+  margin-left: 250px; /* Matches default sidebar width */
+  transition: margin-left 0.3s ease;
+  background-color: var(--light-color);
+  border-radius: 10px 0 0 0;
+  box-shadow: var(--shadow-sm);
+  min-height: 100vh;
+}
+
+/* When sidebar is closed */
+.main_admin_sidebar.closed ~ .admin-main-content {
+  margin-left: 70px;
+}
+
+/* Content header styles */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.content-header h2 {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Card styles for content */
+.content-card {
+  background: white;
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .admin-main-content {
+    padding: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-main-content {
+    margin-left: 0;
+    padding-top: 70px; /* Space for mobile header */
+  }
+  
+  .main_admin_sidebar.closed ~ .admin-main-content {
+    margin-left: 0;
+  }
+  
+  .main_admin_sidebar.open {
+    z-index: 1000;
+  }
+}
+
+/* Animation for page transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-main-content > * {
+  animation: fadeIn 0.3s ease-out;
+}

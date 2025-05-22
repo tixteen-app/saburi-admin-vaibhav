@@ -21,11 +21,11 @@ export const makeApi = async (
     const config = {
       method,
       url: `https://saburi.ritaz.in${endpoint}`, 
-      // url:"http://localhost:7000"+endpoint,
+      // url:"http://localhost:5010"+endpoint,
       headers,
       data
     };
-
+ 
     const response = await axios(config);
     return response;
   } catch (error) {
