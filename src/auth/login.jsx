@@ -13,6 +13,16 @@ function LoginForm() {
   const [Loading, setLoading] = useState(false);
   const [Islogin, setIslogin] = useState(false);
 
+
+
+  const isLoggedIn = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/admin/admin-dashboard");
+    }
+  }, [isLoggedIn, navigate]);
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (!email) {
@@ -36,9 +46,7 @@ function LoginForm() {
       setIslogin(true)
       toast.success(response.data.message, {
         onClose: () => {
-          if (response.data.user.role === "admin") {
             navigate("/admin/admin-dashboard")
-          }
         }
       })
     } catch (error) {
@@ -120,9 +128,7 @@ function LoginForm() {
                 <button id="button" onClick={handleSubmit}>
                   Sign In
                 </button>
-                <Link to="/Forgot-Password" className='foget_pass_link'>
-                  Forgot your password?
-                </Link>
+               
               </div>
             )
           )}

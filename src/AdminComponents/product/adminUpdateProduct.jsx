@@ -182,59 +182,12 @@ function UpdateProduct() {
                 </div>
               </div>
 
-              {/* Pricing Section */}
-              {/* <div className="form-section">
-                <h3>Pricing</h3>
-                <div className="form-group">
-                  <label>Price:</label>
-                  <input
-                    type="number"
-                    name="price"
-                    value={formData.price}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Price After Discount:</label>
-                  <input
-                    type="number"
-                    name="PriceAfterDiscount"
-                    value={formData.PriceAfterDiscount}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Tax:</label>
-                  <input
-                    type="number"
-                    name="Tax"
-                    value={formData.Tax}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Discount Percentage:</label>
-                  <input
-                    type="number"
-                    name="discountPercentage"
-                    value={formData.discountPercentage}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div> */}
+            
 
               {/* Stock & Quantity Section */}
               <div className="form-section">
                 <h3>Stock & Quantity</h3>
-                {/* <div className="form-group">
-                  <label>Quantity:</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={formData.quantity}
-                    onChange={handleChange}
-                  />
-                </div> */}
+            
                 <div className="form-group">
                   <label>Category:</label>
                   <input
@@ -245,24 +198,7 @@ function UpdateProduct() {
                     disabled
                   />
                 </div>
-                <div className="form-group">
-                  <label>Brand:</label>
-                  <input
-                    type="text"
-                    name="brand"
-                    value={formData.brand}
-                    onChange={handleChange}
-                  />
-                </div>
-                {/* <div className="form-group">
-                  <label>Product Type:</label>
-                  <input
-                    type="text"
-                    name="productType"
-                    value={formData.productType}
-                    onChange={handleChange}
-                  />
-                </div> */}
+            
               </div>
 
               {/* Sizes Section */}
@@ -342,7 +278,7 @@ function UpdateProduct() {
                         className="remove_image_button"
                         onClick={() => handleImageRemove(index)}
                       >
-                        Remove
+                        X
                       </button>
                     </div>
                   ))}

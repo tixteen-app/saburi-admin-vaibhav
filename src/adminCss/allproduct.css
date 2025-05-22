@@ -60,7 +60,8 @@
   border-radius: 4px;
   font-size: 14px;
   /* background-color: white; */
-  background: var(--background-gradient);
+  /* background: var(--background-gradient); */
+  background: white;
 
   cursor: pointer;
 }

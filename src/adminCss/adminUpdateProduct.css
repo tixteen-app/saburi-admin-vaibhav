@@ -1,201 +1,304 @@
+/* adminUpdateProduct.css */
+
+/* Main Container */
 .main_update_product_page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  padding: 30px;
+  background-color: var(--light-color);
+  min-height: 100vh;
 }
 
 .update-product-container {
-  background-color: #f8f9fa;
-  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 30px;
   border-radius: 10px;
-  margin-top: 20px;
-}
-
-.back_arrow_icon {
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.back_arrow_icon:hover {
-  transform: translateX(-3px);
+  box-shadow: var(--shadow-sm);
 }
 
 .update-product-container h2 {
+  color: var(--dark-color);
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+/* Back Arrow */
+.back_arrow_icon {
+  color: var(--primary-color);
   margin-bottom: 20px;
-  color: #343a40;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.update-product-container form div {
+.back_arrow_icon:hover {
+  transform: translateX(-5px);
+  color: var(--dark-color);
+}
+
+/* Form Sections */
+.form-section {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-color);
+}
+
+.form-section h3 {
+  color: var(--dark-color);
+  font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
-.update-product-container form label {
-  font-weight: bold;
+/* Form Groups */
+.form-group {
+  margin-bottom: 20px;
 }
 
-.update-product-container form input[type="text"],
-.update-product-container form textarea,
-.update-product-container form input[type="number"],
-.update-product-container form select {
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--dark-color);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: white;
 }
 
-.update-product-container form textarea {
-  height: 100px;
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
 }
 
-.update-product-container form .update_product_Image_section {
-  margin-bottom: 20px;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(200, 169, 126, 0.2);
+  background: white;
+
 }
 
-.update-product-container form .image_wrapper {
-  margin-bottom: 10px;
-}
-
-.update-product-container form .image_wrapper img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.update-product-container form .remove_image_button {
-  padding: 5px 10px;
-}
-
-.update-product-container form .add_more_images_button {
-  padding: 10px;
-}
-
-.update-product-container form .update_product_image_thumbnail {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-.update_product_button{
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-
-
-/* Styles for each individual image container */
-.update-product-container form .update_image_container_single_image {
-  margin-bottom: 10px;
-  border: 1px solid #ced4da;
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.update-product-container form .update_image_container_single_image img {
-  width: 100px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-
-.update-product-container form .update_image_container_single_image input[type="file"] {
-  flex: 1; /* Take remaining space */
-}
-
-.update-product-container form .update_image_container_single_image progress {
-  width: 100%;
-  margin-top: 5px;
-}
-
-.update-product-container form .update_image_container_single_image button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Styles for the "Add More Images" button */
-.update-product-container form .add_more_image_button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Styles for the thumbnail */
-.update-product-container form .update_product_image_thumbnail {
-  width: 100px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-/* Styles for the submit button */
-.update-product-container form .admin_panel_button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: var(--primary-color);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.update-product-container form .admin_panel_button:hover {
-  background-color: #007bff;
-}
-
-
-/*  */
-/* Additional styles for size section */
+/* Size Section */
 .size-section {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .size-row {
   display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 .size-row input {
-  margin-right: 10px;
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
   flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 .size-row button {
-  padding: 5px 10px;
+  padding: 8px 15px;
   background-color: #dc3545;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.size-row button:hover {
+  background-color: #c82333;
 }
 
 .add-more-sizes-button {
-  padding: 10px 20px;
-  background-color: #28a745;
+  padding: 10px 15px;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.add-more-sizes-button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Image Section */
+.update_product_Image_section {
+  margin-bottom: 25px;
+}
+
+.update_product_Image_section label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--dark-color);
+  font-weight: 500;
+}
+
+.update_product_image_thumbnail {
+  max-width: 150px;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+}
+
+.image_wrapper {
+  position: relative;
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+
+.image_wrapper img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.remove_image_button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(220, 53, 69, 0.8);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove_image_button:hover {
+  background-color: rgba(220, 53, 69, 1);
+}
+
+/* Submit Button */
+.admin_panel_button {
+  padding: 12px 25px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.admin_panel_button:hover {
+  background-color: var(--dark-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.admin_panel_button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Confirm Delete Popup */
+.confirm-delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  text-align: center;
+}
+
+.confirm-delete-popup p {
+  margin-bottom: 20px;
+  color: var(--dark-color);
+}
+
+.confirm-delete-popup button {
+  padding: 8px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-delete-popup button:first-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.confirm-delete-popup button:first-child:hover {
+  background-color: #c82333;
+}
+
+.confirm-delete-popup button:last-child {
+  background-color: var(--accent-color);
+  color: var(--dark-color);
+}
+
+.confirm-delete-popup button:last-child:hover {
+  background-color: #b5986e;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main_update_product_page {
+    padding: 15px;
+  }
+  
+  .update-product-container {
+    padding: 20px;
+  }
+  
+  .size-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .size-row input {
+    width: 100%;
+  }
+  
+  .image_wrapper img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.update-product-container {
+  animation: fadeIn 0.4s ease-out;
 }
