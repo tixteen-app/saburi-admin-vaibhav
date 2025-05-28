@@ -17,16 +17,12 @@ function UpdateProduct() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    price: "",
-    quantity: "",
     category: "",
     brand: "",
     image: [],
     thumbnail: "",
-    discountPercentage: "",
-    productType: "",
     Tax: "",
-    PriceAfterDiscount: "",
+    active: true,
   });
 
   useEffect(() => {
@@ -37,22 +33,17 @@ function UpdateProduct() {
 
         const productData = response.data.product;
         setProduct(productData);
-        setSizes(response.data.sizes);
+        setSizes(response.data.sizes || []);
 
-        // Set form data with the product details
         setFormData({
           name: productData.name,
           description: productData.description,
-          price: productData.price,
-          quantity: productData.quantity,
-          category: productData.category._id,
+          category: productData.category?._id || "",
           brand: productData.brand,
-          image: productData.image,
+          image: productData.image || [],
           thumbnail: productData.thumbnail,
-          discountPercentage: productData.discountPercentage,
-          productType: productData.productType,
           Tax: productData.Tax,
-          PriceAfterDiscount: productData.PriceAfterDiscount,
+          active: productData.active,
         });
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -64,20 +55,37 @@ function UpdateProduct() {
   }, [productId]);
 
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: type === 'checkbox' ? checked : value,
     });
   };
 
   const handleSizeChange = (e, index, field) => {
     const updatedSizes = [...sizes];
-    updatedSizes[index][field] = e.target.value;
+    updatedSizes[index][field] = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    
+    // Calculate FinalPrice if price or discount changes
+    if (field === 'price' || field === 'discountPercentage') {
+      const price = parseFloat(updatedSizes[index].price) || 0;
+      const discount = parseFloat(updatedSizes[index].discountPercentage) || 0;
+      updatedSizes[index].FinalPrice = price - (price * (discount / 100));
+    }
+    
     setSizes(updatedSizes);
   };
 
   const handleAddMoreSizes = () => {
-    setSizes([...sizes, { size: "", sizetype: "", quantity: "" }]);
+    setSizes([...sizes, { 
+      size: "", 
+      sizetype: "", 
+      quantity: 0, 
+      price: 0, 
+      discountPercentage: 0, 
+      FinalPrice: 0,
+      active: true 
+    }]);
   };
 
   const handleDeleteSize = async (sizeId) => {
@@ -91,13 +99,17 @@ function UpdateProduct() {
   };
 
   const handleImageUpload = async (e, type) => {
-    const file = e.target.files[0];
+    const files = e.target.files;
     try {
-      const url = await uploadToCloudinary(file, setUploadProgress);
-      if (type === "thumbnail") {
+      if (type === "thumbnail" && files.length > 0) {
+        const url = await uploadToCloudinary(files[0], setUploadProgress);
         setFormData({ ...formData, thumbnail: url });
-      } else {
-        setFormData({ ...formData, image: [...formData.image, url] });
+      } else if (files.length > 0) {
+        const uploadPromises = Array.from(files).map(file => 
+          uploadToCloudinary(file, setUploadProgress)
+        );
+        const urls = await Promise.all(uploadPromises);
+        setFormData({ ...formData, image: [...formData.image, ...urls] });
       }
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -113,17 +125,29 @@ function UpdateProduct() {
     e.preventDefault();
     try {
       setUpdateLoader(true);
-      await makeApi(`/api/update-product/${productId}`, "PUT", formData);
+      
+      // Update product
+      await makeApi(`/api/update-product/${productId}`, "PUT", {
+        ...formData,
+        active: formData.active
+      });
+      
+      // Update sizes
       for (const size of sizes) {
         if (size._id) {
-          await makeApi(`/api/update-productsize/${size._id}`, "PUT", size);
+          await makeApi(`/api/update-productsize/${size._id}`, "PUT", {
+            ...size,
+            active: size.active
+          });
         } else {
           await makeApi(`/api/add-productsize`, "POST", {
             productId,
             ...size,
+            active: size.active
           });
         }
       }
+      
       console.log("Product updated successfully!");
       navigate("/admin/allproducts");
     } catch (error) {
@@ -180,54 +204,92 @@ function UpdateProduct() {
                     onChange={handleChange}
                   />
                 </div>
-              </div>
-
-            
-
-              {/* Stock & Quantity Section */}
-              <div className="form-section">
-                <h3>Stock & Quantity</h3>
-            
                 <div className="form-group">
-                  <label>Category:</label>
+                  <label>Brand:</label>
                   <input
                     type="text"
-                    name="category"
-                    value={formData.category}
+                    name="brand"
+                    value={formData.brand}
                     onChange={handleChange}
-                    disabled
                   />
                 </div>
-            
+                <div className="form-group">
+                  <label>Tax (%):</label>
+                  <input
+                    type="number"
+                    name="Tax"
+                    value={formData.Tax}
+                    onChange={handleChange}
+                    step="0.01"
+                  />
+                </div>
+                <div className="form-group checkbox-group">
+                  <label>Active:</label>
+                  <input
+                    type="checkbox"
+                    name="active"
+                    checked={formData.active}
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
 
               {/* Sizes Section */}
               <div className="form-section">
-                <h3>Sizes</h3>
+                <h3>Sizes & Pricing</h3>
                 <div className="size-section">
                   {sizes.map((size, index) => (
                     <div key={index} className="size-row">
                       <input
                         type="text"
-                        name={`size_${index}`}
                         value={size.size}
                         placeholder="Size"
                         onChange={(e) => handleSizeChange(e, index, "size")}
                       />
                       <input
                         type="text"
-                        name={`sizetype_${index}`}
                         value={size.sizetype}
                         placeholder="Size Type"
                         onChange={(e) => handleSizeChange(e, index, "sizetype")}
                       />
                       <input
                         type="number"
-                        name={`quantity_${index}`}
                         value={size.quantity}
                         placeholder="Quantity"
                         onChange={(e) => handleSizeChange(e, index, "quantity")}
+                        min="0"
                       />
+                      <input
+                        type="number"
+                        value={size.price}
+                        placeholder="Price"
+                        onChange={(e) => handleSizeChange(e, index, "price")}
+                        min="0"
+                        step="0.01"
+                      />
+                      <input
+                        type="number"
+                        value={size.discountPercentage}
+                        placeholder="Discount %"
+                        onChange={(e) => handleSizeChange(e, index, "discountPercentage")}
+                        min="0"
+                        max="100"
+                        step="0.01"
+                      />
+                      <input
+                        type="number"
+                        value={size.FinalPrice || ''}
+                        placeholder="Final Price"
+                        readOnly
+                      />
+                      <div className="checkbox-group">
+                        <label>Active:</label>
+                        <input
+                          type="checkbox"
+                          checked={size.active}
+                          onChange={(e) => handleSizeChange(e, index, "active")}
+                        />
+                      </div>
                       {size._id && (
                         <button
                           type="button"
@@ -258,6 +320,7 @@ function UpdateProduct() {
                   <input
                     type="file"
                     onChange={(e) => handleImageUpload(e, "thumbnail")}
+                    accept="image/*"
                   />
                   {formData.thumbnail && (
                     <img
@@ -269,23 +332,33 @@ function UpdateProduct() {
                 </div>
 
                 <div className="update_product_Image_section">
-                  <label>Product Images:</label>
-                  {formData.image.map((img, index) => (
-                    <div key={index} className="image_wrapper">
-                      <img src={img} alt={`Product ${index}`} />
-                      <button
-                        type="button"
-                        className="remove_image_button"
-                        onClick={() => handleImageRemove(index)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  ))}
+                  <label>Product Images (Multiple):</label>
+                  <div className="image-gallery">
+                    {formData.image.map((img, index) => (
+                      <div key={index} className="image_wrapper">
+                        <img src={img} alt={`Product ${index}`} />
+                        <button
+                          type="button"
+                          className="remove_image_button"
+                          onClick={() => handleImageRemove(index)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                   <input
                     type="file"
                     onChange={(e) => handleImageUpload(e, "image")}
+                    accept="image/*"
+                    multiple
                   />
+                  {uploadProgress > 0 && uploadProgress < 100 && (
+                    <div className="upload-progress">
+                      <progress value={uploadProgress} max="100" />
+                      <span>{uploadProgress}%</span>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -306,28 +379,18 @@ function UpdateProduct() {
 
       {/* Confirm Delete Size Popup */}
       {showConfirm.show && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-            padding: "20px",
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            zIndex: 1000,
-          }}
-        >
+        <div className="confirmation-modal">
           <p>Are you sure you want to delete this size?</p>
-          <button
-            onClick={() => handleDeleteSize(showConfirm.sizeId)}
-            style={{ marginRight: "10px" }}
-          >
-            Yes
-          </button>
-          <button onClick={() => setShowConfirm({ show: false, sizeId: null })}>
-            No
-          </button>
+          <div className="confirmation-buttons">
+            <button
+              onClick={() => handleDeleteSize(showConfirm.sizeId)}
+            >
+              Yes
+            </button>
+            <button onClick={() => setShowConfirm({ show: false, sizeId: null })}>
+              No
+            </button>
+          </div>
         </div>
       )}
     </>

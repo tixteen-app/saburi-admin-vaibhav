@@ -78,7 +78,7 @@ function Adminsidebar() {
               </div>
             </Link>
             
-            <Link className="Link_tag" to={"/admin/all-user"}>
+            {/* <Link className="Link_tag" to={"/admin/all-user"}>
               <div 
                 className={`admin_sidebar_menu_items ${selectedItem === "All Users" && "selected"}`} 
                 onClick={() => handleMenuItemClick("All Users")}
@@ -86,7 +86,7 @@ function Adminsidebar() {
                 <FiUsers className="menu-icon" />
                 <span>Users</span>
               </div>
-            </Link>
+            </Link> */}
             
             <Link className="Link_tag" to={"/admin/offer-banner"}>
               <div 
